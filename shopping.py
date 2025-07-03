@@ -144,7 +144,27 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    raise NotImplementedError
+    predicted_purchases = 0
+    predicted_nonpurchases = 0
+    number_of_purchases = 0
+    number_of_nonpurchases = 0
+    
+    # Count the number of purchases and the number of non purchases
+    for i in range(len(labels)):
+        if labels[i] == 1:
+            number_of_purchases += 1
+        else:
+            number_of_nonpurchases += 1
+
+        # Count the number of correctly predicted purchases and number of correct ignored non purchases
+        if labels[i] == 1 and predictions[i] == 1:
+            predicted_purchases += 1
+        if labels[i] == 0 and predictions[i] == 0:
+            predicted_nonpurchases += 1
+
+    # Return the sensitivity and specificity
+    return ((float(predicted_purchases/number_of_purchases), float(predicted_nonpurchases/number_of_nonpurchases)))
+
 
 
 if __name__ == "__main__":
